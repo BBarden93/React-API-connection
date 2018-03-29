@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
 import httpClient from './httpClient.js'
+import UserItem from './UserItem.js'
 
 class App extends Component {
   
@@ -49,17 +49,13 @@ class App extends Component {
         <div>
             {this.state.users.map((u) => {
               return (
-              <div key={u._id}>
-                <h2>{u.name}</h2>
-                <img src={u.avatar} alt={u.name}/>
-                <p>{u.bio}</p>
-              </div>
+                <UserItem user={u} key={u._id} />
               )
             })}
-        </div> 
+        </div>
       </div>
     );
-  }
-}
+  } 
+}      
 
 export default App;
