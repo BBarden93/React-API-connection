@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import httpCLient from './httpClient.js'
+
+// httpClient({method: 'get', url: '/users'}).then((serverResponse) => {
+//   console.log(serverResponse.data.users)
+// }) 
+
 
 class App extends Component {
   render() {
