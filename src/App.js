@@ -32,7 +32,7 @@ class App extends Component {
     bio.value = ""
     avatar.value = ""
     name.focus()
-  }
+  
   }
 
   render() {
