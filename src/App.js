@@ -20,11 +20,17 @@ class App extends Component {
     console.log(this.state.users)
     return (
       <div className="App">
-        <ul>
+        <div>
             {this.state.users.map((u) => {
-              return <li key={u._id}>{u.name}</li>
+              return (
+              <div key={u._id}>
+                <h2>{u.name}</h2>
+                <img src={u.avatar} alt={u.name}/>
+                <p>{u.bio}</p>
+              </div>
+              )
             })}
-        </ul> 
+        </div> 
       </div>
     );
   }
