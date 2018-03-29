@@ -8,4 +8,8 @@ httpClient.getUsers = function() {
     return this({method: 'get', url: 'users'})
 }
 
+// httpClient({method: 'get', url: '/users'}).then((serverResponse) => {
+//   console.log(serverResponse.data.users)
+// }) 
+
 export default httpClient 

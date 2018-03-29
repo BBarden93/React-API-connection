@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import httpClient from './httpClient.js'
-
-// httpClient({method: 'get', url: '/users'}).then((serverResponse) => {
-//   console.log(serverResponse.data.users)
-// }) 
 
 class App extends Component {
   
@@ -15,7 +10,9 @@ class App extends Component {
 
   componentDidMount() {
     httpClient.getUsers().then((serverResponse) => {
-      console.log(serverResponse.data.users)
+      this.setState({
+        users: serverResponse.data.users
+      })
     })
   }
 
@@ -23,7 +20,11 @@ class App extends Component {
     console.log(this.state.users)
     return (
       <div className="App">
-        
+        <ul>
+            {this.state.users.map((u) => {
+              return <li key={u._id}>{u.name}</li>
+            })}
+        </ul> 
       </div>
     );
   }
