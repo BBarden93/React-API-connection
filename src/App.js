@@ -20,6 +20,13 @@ class App extends Component {
     console.log(this.state.users)
     return (
       <div className="App">
+        <form>
+          <input ref ="name" type="text" placeholder="Name"/>
+          <input ref ="email" type="text"placeholder="Email"/>
+          <input ref ="bio" type="text" placeholder="Bio"/>
+          <input ref ="avatar" type="text" placeholder="Image URL"/>
+          <button>Submit</button>
+        </form>
         <div>
             {this.state.users.map((u) => {
               return (
