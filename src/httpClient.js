@@ -8,6 +8,10 @@ httpClient.getUsers = function() {
     return this({method: 'get', url: 'users'})
 }
 
+httpClient.addUser = function(fields) {
+  return this({method:'post', url: '/users', data: fields})
+}
+
 // httpClient({method: 'get', url: '/users'}).then((serverResponse) => {
 //   console.log(serverResponse.data.users)
 // }) 

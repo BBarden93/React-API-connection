@@ -16,6 +16,25 @@ class App extends Component {
     })
   }
 
+  handleFormSubmit(evt) {
+    evt.preventDefault()
+    const {name, email, bio, avatar} = this.refs
+    const newUser = {name: name.value, email: email.value, bio: bio.value, avatar: avatar.value}
+  
+    httpClient.addUser(newUser).then((serverResponse) => {
+      console.log(serverResponse.data)
+      this.setState({
+        users: [...this.state.users, serverResponse]
+      })
+    })
+    name.value = ""
+    email.value = ""
+    bio.value = ""
+    avatar.value = ""
+    name.focus()
+  }
+  }
+
   render() {
     console.log(this.state.users)
     return (
