@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import httpClient from './httpClient.js'
 import UserItem from './UserItem.js'
+import _ from 'lodash'
+import { Container, Row, Col } from 'reactstrap';
 
 class App extends Component {
   
@@ -37,8 +39,10 @@ class App extends Component {
 
   render() {
     console.log(this.state.users)
+    const userRows = _.chunk(this.state.users, 4)
+    console.log(userRows)
     return (
-      <div className="App">
+      <Container className="App">
         <form>
           <input ref ="name" type="text" placeholder="Name"/>
           <input ref ="email" type="text"placeholder="Email"/>
@@ -47,13 +51,21 @@ class App extends Component {
           <button>Submit</button>
         </form>
         <div>
-            {this.state.users.map((u) => {
+            {userRows.map((row, index) => {
               return (
-                <UserItem user={u} key={u._id} />
+                <Row key={index}>
+                  {row.map((u) => {
+                    return (
+                    <Col key={u._id} sm="3">
+                       <UserItem user={u} />
+                    </Col>
+                    )
+                  })}
+                </Row>
               )
             })}
         </div>
-      </div>
+      </Container>
     );
   } 
 }      

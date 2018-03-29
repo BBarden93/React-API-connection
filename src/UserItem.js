@@ -8,7 +8,7 @@ const UserItem = (props) => {
     return(
     
     <Card>
-        <CardImg top width="100%" src={user.avatar} alt={user.name} />
+        <CardImg top width="100px" src={user.avatar} alt={user.name} />
         <CardBody>
             <CardTitle>{user.name}</CardTitle>
             <CardSubtitle>{user.email}</CardSubtitle>
