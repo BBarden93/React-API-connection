@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import httpClient from './httpClient.js'
 import UserItem from './UserItem.js'
 import _ from 'lodash'
-import { Container, Row, Col, Label, Form, FormGroup, Input, Button } from 'reactstrap';
+import { Container, Row, Col, Label, Form, FormGroup, FormText, Input, Button } from 'reactstrap';
 
 class App extends Component {
   
@@ -28,23 +28,30 @@ class App extends Component {
       avatar: avatar.refs.avatar.value}
   
     httpClient.addUser(newUser).then((serverResponse) => {
-      console.log(serverResponse.data)
+      const {data} = serverResponse
+      if(data.success) {
+        console.log(data)
       this.setState({
         users: [...this.state.users, serverResponse]
       })
+      }
     })
     name.value = ""
     email.value = ""
     bio.value = ""
     avatar.value = ""
-    name.focus()
+    name.refs.name.focus()
   }
 
   handleCardDelete(user) {
     console.log(user)
     httpClient.destroyUser(user).then((serverResponse) => {
       console.log(serverResponse.data)
-      
+      this.setState({
+        users: this.state.users.filter((user) => {
+          return user._id !== user 
+        })
+      })
     })
   }
 
@@ -80,7 +87,10 @@ class App extends Component {
                   {row.map((u) => {
                     return (
                     <Col key={u._id} sm="3">
-                       <UserItem onDeleteClick={this.handleCardDelete.bind(this)} user={u} />
+                       <UserItem 
+                          user={u}
+                          onDeleteClick={this.handleCardDelete.bind(this, u._id)
+                       }/>
                     </Col>
                     )
                   })}
