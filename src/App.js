@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import httpClient from './httpClient.js'
 import UserItem from './UserItem.js'
 import _ from 'lodash'
-import { Container, Row, Col, Label, Form, FormGroup, FormText, Input, Button } from 'reactstrap';
+import { Container, Row, Col, Label, Form, FormGroup, Input, Button } from 'reactstrap';
 
 class App extends Component {
   
@@ -43,13 +43,12 @@ class App extends Component {
     name.refs.name.focus()
   }
 
-  handleCardDelete(user) {
-    console.log(user)
-    httpClient.destroyUser(user).then((serverResponse) => {
+  handleCardDelete(id) {
+    httpClient.destroyUser(id).then((serverResponse) => {
       console.log(serverResponse.data)
       this.setState({
-        users: this.state.users.filter((user) => {
-          return user._id !== user 
+        users: this.state.users.filter((u) => {
+          return u._id !== id
         })
       })
     })
@@ -63,7 +62,7 @@ class App extends Component {
       <Container className="App">
         <Form onSubmit={this.handleFormSubmit.bind(this)}>
           <FormGroup>
-          <Label for="exampleEmail">Email</Label>
+          <Label for="exampleEmail">Name</Label>
           <Input ref="name" innerRef="name" type="text" placeholder="Name" />
           </FormGroup>
           <FormGroup>
@@ -71,11 +70,11 @@ class App extends Component {
           <Input ref="email" innerRef="email" type="text" placeholder="Email" />
           </FormGroup>
           <FormGroup>
-          <Label for="exampleEmail">Email</Label>
+          <Label for="exampleEmail">Bio</Label>
           <Input ref="bio" innerRef="bio" type="text" placeholder="Bio" />
           </FormGroup>
           <FormGroup>
-          <Label for="exampleEmail">Email</Label>
+          <Label for="exampleEmail">Avatar</Label>
           <Input ref="avatar" innerRef="avatar" type="text" placeholder="Avatar" />
           </FormGroup>
           <Button>Submit</Button>
