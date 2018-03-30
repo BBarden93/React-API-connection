@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import httpClient from './httpClient.js'
 import UserItem from './UserItem.js'
 import _ from 'lodash'
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Label, Form, FormGroup, Input, Button } from 'reactstrap';
 
 class App extends Component {
   
@@ -21,7 +21,11 @@ class App extends Component {
   handleFormSubmit(evt) {
     evt.preventDefault()
     const {name, email, bio, avatar} = this.refs
-    const newUser = {name: name.value, email: email.value, bio: bio.value, avatar: avatar.value}
+    const newUser = {
+      name: name.refs.name.value, 
+      email: email.refs.email.value, 
+      bio: bio.refs.bio.value, 
+      avatar: avatar.refs.avatar.value}
   
     httpClient.addUser(newUser).then((serverResponse) => {
       console.log(serverResponse.data)
@@ -34,7 +38,14 @@ class App extends Component {
     bio.value = ""
     avatar.value = ""
     name.focus()
-  
+  }
+
+  handleCardDelete(user) {
+    console.log(user)
+    httpClient.destroyUser(user).then((serverResponse) => {
+      console.log(serverResponse.data)
+      
+    })
   }
 
   render() {
@@ -43,13 +54,25 @@ class App extends Component {
     console.log(userRows)
     return (
       <Container className="App">
-        <form>
-          <input ref ="name" type="text" placeholder="Name"/>
-          <input ref ="email" type="text"placeholder="Email"/>
-          <input ref ="bio" type="text" placeholder="Bio"/>
-          <input ref ="avatar" type="text" placeholder="Image URL"/>
-          <button>Submit</button>
-        </form>
+        <Form onSubmit={this.handleFormSubmit.bind(this)}>
+          <FormGroup>
+          <Label for="exampleEmail">Email</Label>
+          <Input ref="name" innerRef="name" type="text" placeholder="Name" />
+          </FormGroup>
+          <FormGroup>
+          <Label for="exampleEmail">Email</Label>
+          <Input ref="email" innerRef="email" type="text" placeholder="Email" />
+          </FormGroup>
+          <FormGroup>
+          <Label for="exampleEmail">Email</Label>
+          <Input ref="bio" innerRef="bio" type="text" placeholder="Bio" />
+          </FormGroup>
+          <FormGroup>
+          <Label for="exampleEmail">Email</Label>
+          <Input ref="avatar" innerRef="avatar" type="text" placeholder="Avatar" />
+          </FormGroup>
+          <Button>Submit</Button>
+        </Form>
         <div>
             {userRows.map((row, index) => {
               return (
@@ -57,14 +80,14 @@ class App extends Component {
                   {row.map((u) => {
                     return (
                     <Col key={u._id} sm="3">
-                       <UserItem user={u} />
+                       <UserItem onDeleteClick={this.handleCardDelete.bind(this)} user={u} />
                     </Col>
                     )
                   })}
                 </Row>
               )
             })}
-        </div>
+        </div> 
       </Container>
     );
   } 

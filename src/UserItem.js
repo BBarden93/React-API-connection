@@ -5,15 +5,14 @@ import { Card, CardImg, CardText, CardBody,
 const UserItem = (props) => {
     const {user} = props 
 
-    return(
-    
+    return (
     <Card>
-        <CardImg top width="100px" src={user.avatar} alt={user.name} />
+        <CardImg top width="100%" src={user.avatar} alt={user.name} />
         <CardBody>
             <CardTitle>{user.name}</CardTitle>
             <CardSubtitle>{user.email}</CardSubtitle>
             <CardText>{user.bio}</CardText>
-            <Button>Delete</Button>
+            <Button onClick={() => {props.onDeleteClick(user)}}>Delete</Button>
         </CardBody>
     </Card>
     )

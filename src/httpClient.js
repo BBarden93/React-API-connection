@@ -12,6 +12,10 @@ httpClient.addUser = function(fields) {
   return this({method:'post', url: '/users', data: fields})
 }
 
+httpClient.destroyUser = function(user) {
+  return this({method:'delete', url: `/users/${user._id}`})
+}
+
 // httpClient({method: 'get', url: '/users'}).then((serverResponse) => {
 //   console.log(serverResponse.data.users)
 // }) 
